@@ -34,42 +34,44 @@ class _PaymentState extends State<PaymentWidget>
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    controller = NavigationController(Client(), widget.style, this);
-    return MaterialApp(
-      navigatorKey: _navigatorKey,
-      debugShowCheckedModeBanner: widget.request.isTestMode,
-      home: Scaffold(
-        backgroundColor: widget.style.getMainBackgroundColor(),
-        appBar: FlutterwaveViewUtils.appBar(
-          context,
-          widget.style.getAppBarText(),
-          widget.style.getAppBarTextStyle(),
-          widget.style.getAppBarIcon(),
-          widget.style.getAppBarColor(),
-        ),
-        body: SafeArea(
-          child: Container(
-            width: double.infinity,
-            height: 50,
-            margin: EdgeInsets.fromLTRB(20, 50, 20, 0),
-            child: ElevatedButton(
-              autofocus: true,
-              onPressed: _handleButtonClicked,
-              style: ElevatedButton.styleFrom(
-                  primary: widget.style.getButtonColor(),
-                  textStyle: widget.style.getButtonTextStyle()),
-              child: Text(
-                widget.style.getButtonText(),
-                style: widget.style.getButtonTextStyle(),
-              ),
+@override
+Widget build(BuildContext context) {
+  controller = NavigationController(Client(), widget.style, this);
+  return MaterialApp(
+    navigatorKey: _navigatorKey,
+    debugShowCheckedModeBanner: widget.request.isTestMode,
+    home: Scaffold(
+      backgroundColor: widget.style.getMainBackgroundColor(),
+      appBar: FlutterwaveViewUtils.appBar(
+        context,
+        widget.style.getAppBarText(),
+        widget.style.getAppBarTextStyle(),
+        widget.style.getAppBarIcon(),
+        widget.style.getAppBarColor(),
+      ),
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: 50,
+          margin: EdgeInsets.fromLTRB(20, 50, 20, 0),
+          child: ElevatedButton(
+            autofocus: true,
+            onPressed: _handleButtonClicked,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(widget.style.getButtonColor()),
+              textStyle: MaterialStateProperty.all<TextStyle>(widget.style.getButtonTextStyle()),
+            ),
+            child: Text(
+              widget.style.getButtonText(),
+              style: widget.style.getButtonTextStyle(),
             ),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   void _handleButtonClicked() {
     if (_isDisabled) return;
